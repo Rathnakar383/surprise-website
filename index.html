@@ -3,35 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>A Surprise for My Love ❤️</title>
+    <title>A Surprise for My Fav Person ❤️</title>
     
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script src="https://unpkg.com/typed.js@2.1.0/dist/typed.umd.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
     <style>
         :root {
-            --primary-pink: #ffafbd;
-            --deep-rose: #ffc3a0;
-            --soft-purple: #ee9ca7;
-            --white: #ffffff;
+            --glass: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.3);
+            --text: #ffffff;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, var(--soft-purple), var(--primary-pink));
+            font-family: 'Inter', sans-serif;
             height: 100vh;
             overflow: hidden;
             display: flex;
             justify-content: center;
             align-items: center;
-            color: #4a4a4a;
+            color: var(--text);
+            background: linear-gradient(-45deg, #ee9ca7, #ffafbd, #2f0743, #41295a);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
         }
 
-        /* Background Floating Hearts */
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
         .heart-bg {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -41,15 +48,18 @@
 
         .container {
             width: 90%;
-            max-width: 500px;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 30px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 450px;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            padding: 40px 20px;
+            border-radius: 30px;
+            box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
             text-align: center;
             position: relative;
             z-index: 10;
-            min-height: 400px;
+            min-height: 480px;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -57,48 +67,70 @@
 
         .hidden { display: none !important; }
 
-        /* Step 1: Login */
-        h2 { font-family: 'Dancing Script', cursive; font-size: 2rem; margin-bottom: 20px; color: #d63384; }
+        h2 { 
+            font-family: 'Dancing Script', cursive; 
+            font-size: 3rem; 
+            margin-bottom: 20px; 
+            color: #fff;
+            text-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+        }
+
         input {
-            width: 80%;
-            padding: 12px;
-            border: 2px solid var(--primary-pink);
-            border-radius: 25px;
+            width: 85%;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid var(--glass-border);
+            border-radius: 15px;
             outline: none;
             text-align: center;
-            font-size: 1rem;
-            margin-bottom: 15px;
-        }
-        button {
-            background: #ff4d6d;
+            font-size: 1.2rem;
             color: white;
+            margin-bottom: 20px;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 30px;
+            position: relative;
+            min-height: 60px;
+        }
+
+        button {
+            background: #fff;
+            color: #d63384;
             border: none;
-            padding: 12px 30px;
-            border-radius: 25px;
+            padding: 14px 35px;
+            border-radius: 50px;
             cursor: pointer;
             font-weight: 600;
-            transition: 0.3s;
+            font-size: 0.95rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
         }
-        button:hover { background: #ff758f; transform: scale(1.05); }
 
-        /* Step 2: Letter */
-        #letter-text { font-size: 1.1rem; line-height: 1.6; color: #555; }
+        #no-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 1px solid var(--glass-border);
+        }
 
-        /* Step 3: Cake */
-        .cake { font-size: 80px; cursor: pointer; transition: 0.5s; }
-        .cake.blown { opacity: 0.5; filter: grayscale(1); }
+        #typed-text { font-size: 1.1rem; min-height: 150px; text-align: left; padding: 0 10px; line-height: 1.7; }
 
-        /* Audio Controls */
+        .cake { font-size: 110px; cursor: pointer; transition: transform 0.3s ease; }
+        .cake.blown { filter: grayscale(1) opacity(0.5); transform: scale(0.85); }
+
         .music-toggle {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: white;
-            padding: 10px;
+            bottom: 30px; right: 30px;
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            width: 55px; height: 55px;
             border-radius: 50%;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            cursor: pointer;
-            z-index: 100;
+            display: flex; align-items: center; justify-content: center;
+            border: 1px solid var(--glass-border);
+            cursor: pointer; z-index: 100;
         }
     </style>
 </head>
@@ -112,29 +144,37 @@
     <div class="music-toggle" onclick="toggleMusic()">🎵</div>
 
     <div class="container" id="main-card">
-        
         <div id="page1">
-            <h2>Hey Love 💕</h2>
-            <p style="margin-bottom: 20px;">I have something special for you... Enter our secret code to unlock your surprise 🎁</p>
-            <input type="password" id="secretCode" placeholder="Our special date or word?">
+            <h2>Hey beautiful💕</h2>
+            <p style="margin-bottom: 25px;">Enter our secret code to unlock your surprise 🎁</p>
+            <input type="password" id="secretCode" placeholder="Enter code here...">
             <br>
-            <button onclick="checkCode()">Unlock</button>
-            <p id="error-msg" style="color: #ff4d6d; font-size: 0.8rem; margin-top: 10px; display: none;"></p>
+            <button onclick="checkCode()">Unlock Experience</button>
+            <p id="error-msg" style="display: none; color: #ffd6d6; font-size: 0.85rem; margin-top: 15px;"></p>
         </div>
 
         <div id="page2" class="hidden">
-            <h2>For You... ❤️</h2>
-            <div id="typed-text"></div>
-            <button id="next-btn" class="hidden" style="margin-top: 20px;" onclick="goToCake()">Next Surprise ✨</button>
+            <h2 style="font-size: 2.2rem;">Wait... ✋❤️</h2>
+            <p style="margin-bottom: 10px;">Do you wanna see your birthday surprise wishes?</p>
+            <div class="btn-group">
+                <button onclick="goToLetter()">Yes ❤️</button>
+                <button id="no-btn" onmouseover="moveNoButton()" onclick="moveNoButton()">No 💔</button>
+            </div>
         </div>
 
         <div id="page3" class="hidden">
-            <h2 id="final-wish">Make a Wish! 🎂</h2>
+            <h2>For You... ❤️</h2>
+            <div id="typed-text"></div>
+            <button id="next-btn" class="hidden" style="margin-top: 25px;" onclick="goToCake()">Next Surprise ✨</button>
+        </div>
+
+        <div id="page4" class="hidden">
+            <h2 id="final-wish">Make a Wish!</h2>
             <div class="cake" id="cake" onclick="blowCandle()">🎂</div>
-            <p id="instruction">Tap the cake to blow out the candles!</p>
-            <div id="final-message" class="hidden">
-                <p>Happy Birthday, Beautiful! 🎈</p>
-                <p style="font-size: 0.9rem; margin-top: 15px;">This is just a small surprise to remind you how much I love you. See you soon! ❤️</p>
+            <p id="instruction" style="margin-top: 20px; opacity: 0.8;">Tap the cake to blow out the candles</p>
+            <div id="final-message" class="hidden" style="margin-top: 20px;">
+                <p style="font-size: 1.3rem; font-weight: 600;">Happy Birthday,Cutiepie! 🎈</p>
+                <p style="font-size: 0.95rem; margin-top: 10px;">Once again happiest blessed bday papa❤️💕. See you soon! ❤️</p>
             </div>
         </div>
     </div>
@@ -143,108 +183,87 @@
         const audio = document.getElementById('bg-music');
         let musicPlaying = false;
 
-        // 1. Music Toggle
         function toggleMusic() {
             if (musicPlaying) {
                 audio.pause();
             } else {
-                audio.play();
+                audio.play().catch(e => console.log("Blocked"));
             }
             musicPlaying = !musicPlaying;
         }
 
-        // 2. Heart Background Animation
-        function createHeart() {
-            const heart = document.createElement('div');
-            heart.innerHTML = '❤️';
-            heart.style.position = 'absolute';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.top = '110vh';
-            heart.style.fontSize = Math.random() * 20 + 10 + 'px';
-            heart.style.opacity = Math.random();
-            document.getElementById('heart-bg').appendChild(heart);
-
-            gsap.to(heart, {
-                y: '-120vh',
-                x: (Math.random() - 0.5) * 200,
-                duration: Math.random() * 3 + 3,
-                ease: "power1.out",
-                onComplete: () => heart.remove()
-            });
+        function createHearts() {
+            const el = document.createElement('div');
+            el.innerHTML = Math.random() > 0.5 ? '❤️' : '✨';
+            el.style.position = 'absolute';
+            el.style.left = Math.random() * 100 + 'vw';
+            el.style.top = '110vh';
+            el.style.fontSize = Math.random() * 20 + 10 + 'px';
+            el.style.opacity = Math.random() * 0.5;
+            el.style.pointerEvents = 'none';
+            document.getElementById('heart-bg').appendChild(el);
+            gsap.to(el, { y: '-120vh', x: (Math.random()-0.5)*200, duration: Math.random()*5+5, onComplete: () => el.remove() });
         }
-        setInterval(createHeart, 400);
+        setInterval(createHearts, 400);
 
-        // 3. Logic: Page 1 to Page 2
         function checkCode() {
-            const code = document.getElementById('secretCode').value.toLowerCase();
-            const correctCode = "love"; // <-- CHANGE THIS to your secret word or date
+            if(document.getElementById('secretCode').value === "150408") {
+                // START MUSIC ON SUCCESSFUL INTERACTION
+                audio.play().catch(e => console.log("Audio Play Failed"));
+                musicPlaying = true;
 
-            if(code === correctCode) {
-                gsap.to("#page1", {opacity: 0, duration: 0.5, onComplete: () => {
+                gsap.to("#page1", { opacity: 0, scale: 0.9, duration: 0.5, onComplete: () => {
                     document.getElementById('page1').classList.add('hidden');
                     document.getElementById('page2').classList.remove('hidden');
-                    startTypewriter();
+                    gsap.from("#page2", { opacity: 0, y: 30, duration: 0.6 });
                 }});
             } else {
-                const error = document.getElementById('error-msg');
-                error.innerText = "Oops 😝 That’s not our special code… Try again my love!";
-                error.style.display = "block";
+                const err = document.getElementById('error-msg');
+                err.innerText = "Oops! Wrong code Digna papa! 😝";
+                err.style.display = "block";
+                gsap.fromTo("#secretCode", {x: -10}, {x: 10, duration: 0.1, repeat: 5, yoyo: true});
             }
         }
 
-        // 4. Logic: Typewriter Letter
-        function startTypewriter() {
-            new Typed('#typed-text', {
-                strings: [
-                    "Happy Birthday, my love ❤️<br><br>From the moment you came into my life, everything became brighter and more beautiful.<br><br>You are my happiness, my peace, and my safe place.<br><br>Today is your day, but you make every day of my life special 💕"
-                ],
-                typeSpeed: 50,
-                showCursor: false,
-                onComplete: () => {
-                    document.getElementById('next-btn').classList.remove('hidden');
-                }
-            });
+        function moveNoButton() {
+            const noBtn = document.getElementById('no-btn');
+            const randomX = (Math.random() - 0.5) * 250;
+            const randomY = (Math.random() - 0.5) * 250;
+            gsap.to(noBtn, { x: randomX, y: randomY, duration: 0.3, ease: "power2.out" });
         }
 
-        // 5. Logic: Page 2 to Page 3
-        function goToCake() {
-            gsap.to("#page2", {opacity: 0, duration: 0.5, onComplete: () => {
+        function goToLetter() {
+            gsap.to("#page2", { opacity: 0, duration: 0.5, onComplete: () => {
                 document.getElementById('page2').classList.add('hidden');
                 document.getElementById('page3').classList.remove('hidden');
+                new Typed('#typed-text', {
+                    strings: ["Happy Birthday, beautiful!❤️<br><br>To the most beautiful gurl in the world, you make everything brighter.<br><br>No matter where life takes us, I'll always wish the best for you.<br><br>Today is your day, enjoy the day, mentalloo 💕"],
+                    typeSpeed: 45, showCursor: false,
+                    onComplete: () => {
+                        document.getElementById('next-btn').classList.remove('hidden');
+                    }
+                });
             }});
         }
 
-        // 6. Logic: Blow Candle
+        function goToCake() {
+            gsap.to("#page3", { opacity: 0, duration: 0.5, onComplete: () => {
+                document.getElementById('page3').classList.add('hidden');
+                document.getElementById('page4').classList.remove('hidden');
+            }});
+        }
+
         function blowCandle() {
-            const cake = document.getElementById('cake');
-            cake.classList.add('blown');
-            document.getElementById('instruction').classList.add('hidden');
+            document.getElementById('cake').classList.add('blown');
+            document.getElementById('instruction').style.opacity = '0';
             document.getElementById('final-wish').innerText = "Hooray! 🎉";
             document.getElementById('final-message').classList.remove('hidden');
-
-            // Confetti Explosion
-            var duration = 3 * 1000;
-            var end = Date.now() + duration;
-
+            
+            const end = Date.now() + 4000;
             (function frame() {
-                confetti({
-                    particleCount: 3,
-                    angle: 60,
-                    spread: 55,
-                    origin: { x: 0 },
-                    colors: ['#ff4d6d', '#ffafbd']
-                });
-                confetti({
-                    particleCount: 3,
-                    angle: 120,
-                    spread: 55,
-                    origin: { x: 1 },
-                    colors: ['#ff4d6d', '#ffafbd']
-                });
-
-                if (Date.now() < end) {
-                    requestAnimationFrame(frame);
-                }
+                confetti({ particleCount: 4, angle: 60, spread: 60, origin: { x: 0 } });
+                confetti({ particleCount: 4, angle: 120, spread: 60, origin: { x: 1 } });
+                if (Date.now() < end) requestAnimationFrame(frame);
             }());
         }
     </script>
